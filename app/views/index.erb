@@ -1,0 +1,47 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/annyang/1.4.0/annyang.min.js"></script>
+<script src="js/responsivevoice.js"></script>
+<script src="http://code.jquery.com/jquery-git2.js"></script>
+
+<script>
+  var caesar = annyang;
+  if (caesar) {
+    // Let's define our first command. First the text we expect, and then the function it should call
+    var commands = {
+      'caesar': function() {
+        $('textarea').text('hello sir')
+        console.log("hello sir")
+      },
+      'how much butter': function() {
+        console.log('2 table spoons');
+      }
+    };
+
+    // Add our commands to caesar
+    caesar.addCommands(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    caesar.start();
+    caesar.debug();
+  }
+</script>
+
+<textarea id="text" cols="45" rows="3">Hello world</textarea>
+
+<select id="voiceselection"></select>
+
+<input
+  onclick="responsiveVoice.speak($('#text').val(),$('#voiceselection').val());"
+  type="button"
+  value="Play"
+/>
+
+<script>
+  //Populate voice selection dropdown
+  var voicelist = responsiveVoice.getVoices();
+
+  var vselect = $("#voiceselection");
+
+  $.each(voicelist, function() {
+          vselect.append($("<option />").val(this.name).text(this.name));
+  });
+</script>
